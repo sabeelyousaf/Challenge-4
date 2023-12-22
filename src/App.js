@@ -1,25 +1,35 @@
 import logo from './logo.svg';
 import './App.css';
-
+import React, { useEffect } from 'react';
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+  const groupByOwners = (files) => {
+    const owners = {};
 
+    for (const file in files) {
+      const owner = files[file];
+
+      if (!owners[owner]) {
+        owners[owner] = [];
+      }
+
+      owners[owner].push(file);
+    }
+
+    return owners;
+  };
+
+  // Example usage with useEffect (to demonstrate usage in a React component)
+  useEffect(() => {
+    const files = {
+      "insurance.txt": "Company A",
+      "letter.docx": "Company A",
+      "Contract.docx": "Company B"
+    };
+
+    const result = groupByOwners(files);
+    console.log(result); // Output the grouped data
+  }, []);
+
+  return <div>Check console for grouped data</div>;
+}
 export default App;
